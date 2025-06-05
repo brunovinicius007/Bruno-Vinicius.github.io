@@ -1,1 +1,1472 @@
-# Bruno-Vinicius.github.io
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bruno Neves - Portfólio</title>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <style>
+        /* Estilos CSS Embutidos */
+
+        /* Reset básico e configurações globais */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px; /* Base para unidades rem */
+        }
+
+        body {
+            font-family: 'Arial', sans-serif; /* Fonte mais comum como fallback */
+            line-height: 1.6;
+            background-color: #f4f7f6; /* Tom de branco levemente acinzentado */
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden; /* Evitar scroll horizontal */
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #2c3e50; /* Azul escuro corporativo */
+            color: #ecf0f1; /* Cinza claro para texto */
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: #ecf0f1;
+        }
+        .logo:hover {
+            color: #3498db; /* Azul mais claro no hover */
+        }
+
+        .controls-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem; /* Espaço entre os controles */
+        }
+
+        .nav {
+            display: flex;
+            gap: 1.5rem; /* Espaçamento entre links da navegação */
+        }
+
+        .nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative; /* Para o pseudo-elemento ::after */
+            padding-bottom: 0.3rem;
+        }
+        .nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #3498db;
+            transition: width 0.3s ease-in-out;
+        }
+        .nav a:hover::after,
+        .nav a.active::after { /* Para indicar a seção ativa (requer JS) */
+            width: 100%;
+        }
+        .nav a:hover,
+        .nav a.active {
+            color: #3498db;
+        }
+
+        /* Seções */
+        section {
+            padding: 6rem 2rem 2rem; /* Padding superior maior devido ao header fixo */
+            min-height: 80vh; /* Altura mínima para preencher a tela */
+        }
+        section:nth-of-type(even) { /* Alternar cor de fundo para algumas seções */
+             background-color: #ffffff;
+        }
+        body.dark-mode section:nth-of-type(even) {
+            background-color: #1e1e1e; /* Cor de fundo alternada no modo escuro */
+        }
+
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 0;
+            font-weight: 600; /* Fonte um pouco mais forte */
+        }
+
+        h2 { /* Título das seções */
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+        body.dark-mode h2 {
+            color: #ecf0f1;
+        }
+
+        h2 span { /* Destaque no título da seção */
+            color: #3498db;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #3498db; /* Azul primário */
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 25px; /* Bordas mais arredondadas */
+            margin-top: 1rem;
+            transition: background-color 0.3s, transform 0.2s;
+            font-weight: 500;
+            border: 2px solid transparent;
+        }
+        .btn:hover {
+            background-color: #2980b9; /* Azul um pouco mais escuro no hover */
+            transform: translateY(-2px);
+        }
+        .btn.secondary { /* Botão secundário/outline */
+            background-color: transparent;
+            color: #3498db;
+            border: 2px solid #3498db;
+        }
+        .btn.secondary:hover {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+
+        /* Estilos da seção home */
+        .home {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap; /* Para melhor responsividade */
+            gap: 2rem;
+            min-height: 100vh; /* Ocupar toda a altura da viewport */
+            padding-top: 80px; /* Ajuste para o header fixo */
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); /* Fundo gradiente suave */
+        }
+        body.dark-mode .home {
+             background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+        }
+
+
+        .home-content {
+            max-width: 600px;
+            text-align: center; /* Centralizar texto na home em telas menores */
+        }
+        @media (min-width: 768px) {
+            .home-content {
+                text-align: left; /* Alinhar à esquerda em telas maiores */
+            }
+        }
+
+        .home-content h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem); /* Tamanho de fonte responsivo */
+            margin-bottom: 0.5rem;
+            color: #1a252f;
+        }
+        body.dark-mode .home-content h1 {
+            color: #ecf0f1;
+        }
+        .home-content h3 { /* Subtítulo/cargo */
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            margin-bottom: 1rem;
+            color: #555;
+            font-weight: 400;
+        }
+        body.dark-mode .home-content h3 {
+            color: #bdc3c7;
+        }
+        .home-content p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .languages-bar { /* Para conhecimentos técnicos */
+            margin: 1.5rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        @media (min-width: 768px) {
+            .languages-bar {
+                justify-content: flex-start;
+            }
+        }
+        .languages-bar .languages {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.7);
+            color: #333;
+            padding: 0.4rem 0.8rem;
+            margin: 0.2rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        body.dark-mode .languages-bar .languages {
+            background-color: rgba(0,0,0,0.3);
+            color: #ecf0f1;
+        }
+
+
+        .home-img img {
+            max-width: 320px;
+            width: 100%; /* Para ser responsiva */
+            border-radius: 50%;
+            border: 7px solid #3498db;
+            box-shadow: 0 0 25px rgba(52, 152, 219, 0.5);
+            animation: pulse-border 2s infinite ease-in-out;
+            object-fit: cover; /* Garante que a imagem cubra o espaço redondo */
+            aspect-ratio: 1 / 1; /* Mantém a proporção quadrada para a imagem redonda */
+        }
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 25px rgba(52, 152, 219, 0.3); }
+            50% { box-shadow: 0 0 35px rgba(52, 152, 219, 0.7); }
+            100% { box-shadow: 0 0 25px rgba(52, 152, 219, 0.3); }
+        }
+
+        .arrow { /* Seta para baixo */
+            font-size: 2.5rem;
+            color: #3498db;
+            display: block;
+            text-align: center;
+            margin-top: 2.5rem;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-7px); }
+        }
+
+
+        /* Estilos da seção Areas de Atuação (antiga Serviços) */
+        .services-container { /* Renomear para areas-atuacao-container se preferir */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .services-box { /* Renomear para area-box se preferir */
+            background-color: #fff;
+            padding: 2.5rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            text-align: left; /* Alinhar texto à esquerda para melhor leitura das descrições */
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+        .services-box:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.12);
+        }
+        body.dark-mode .services-box {
+            background-color: #2c2c2c;
+            box-shadow: 0 5px 15px rgba(255,255,255,0.05);
+        }
+        body.dark-mode .services-box:hover {
+             box-shadow: 0 15px 25px rgba(255,255,255,0.08);
+        }
+
+
+        .services-box i {
+            font-size: 2.5rem; /* Ícone um pouco menor e alinhado */
+            margin-bottom: 1rem;
+            color: #3498db;
+            display: block; /* Para centralizar se o texto do box for centralizado */
+            text-align: center; /* Centraliza o ícone */
+        }
+        .services-box h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            text-align: center; /* Centraliza o título do box */
+        }
+        .services-box p, .services-box ul {
+            font-size: 1rem;
+            line-height: 1.7;
+            text-align: left;
+        }
+        .services-box ul {
+            list-style-position: inside;
+            padding-left: 0;
+        }
+        .services-box ul li {
+            margin-bottom: 0.5rem;
+        }
+
+
+        /* Estilos para o menu hambúrguer e navegação responsiva */
+        .menu-hamburguer {
+            display: none; /* Oculto por padrão em telas maiores */
+            cursor: pointer;
+            z-index: 1001; /* Acima do header */
+        }
+
+        .bar1, .bar2, .bar3 {
+            width: 28px;
+            height: 3px;
+            background-color: #ecf0f1;
+            margin: 5px 0;
+            transition: 0.4s ease; /* Transição suave */
+        }
+
+        .nav-responsive {
+            display: none; /* Começa oculto */
+            position: fixed;
+            top: 0; /* Começa do topo */
+            left: -100%; /* Começa fora da tela à esquerda */
+            width: 70%; /* Largura do menu lateral */
+            max-width: 300px; /* Largura máxima */
+            height: 100vh; /* Altura total */
+            background-color: #2c3e50; /* Mesma cor do header */
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 1rem 1rem; /* Padding para não sobrepor o X */
+            box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+            transition: left 0.4s ease-in-out; /* Animação de entrada/saída */
+            z-index: 999; /* Abaixo do botão X, mas acima do conteúdo */
+        }
+        .nav-responsive.open {
+            left: 0; /* Mostra o menu */
+        }
+
+        .nav-responsive a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 1rem 0;
+            width: 100%;
+            text-align: center;
+            font-size: 1.2rem;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .nav-responsive a:hover {
+            background-color: #34495e; /* Cor de fundo no hover */
+            color: #3498db;
+        }
+
+        /* Animação do Menu Hambúrguer (X) */
+        .menu-hamburguer.open .bar1 {
+            transform: rotate(-45deg) translate(-6px, 7px);
+        }
+        .menu-hamburguer.open .bar2 {
+            opacity: 0;
+        }
+        .menu-hamburguer.open .bar3 {
+            transform: rotate(45deg) translate(-6px, -7px);
+        }
+
+
+        /* Estilos para o seletor de idioma */
+        .language-switcher {
+            display: flex;
+            align-items: center;
+        }
+
+        .lang-btn {
+            background: none;
+            border: 1px solid transparent; /* Borda sutil */
+            color: #ecf0f1;
+            cursor: pointer;
+            margin-left: 0.3rem;
+            padding: 0.4rem 0.6rem;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            border-radius: 20px; /* Bordas arredondadas */
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .lang-btn:hover {
+            background-color: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .flag-icon {
+            width: 22px;
+            height: 16px;
+            margin-right: 6px;
+            border: 1px solid #7f8c8d; /* Borda sutil na bandeira */
+            border-radius: 2px;
+            object-fit: cover; /* Garante que a imagem da bandeira cubra o espaço */
+        }
+
+        .lang-btn.active-lang {
+            font-weight: bold;
+            background-color: #3498db;
+            border-color: #3498db;
+        }
+        body.dark-mode .lang-btn.active-lang {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+
+
+        /* Estilos para o tema claro/escuro */
+        .theme-switcher-label { /* Label para o toggle */
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background-color: #7f8c8d; /* Cor de fundo do switch */
+            border-radius: 13px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        body.dark-mode .theme-switcher-label {
+            background-color: #555;
+        }
+
+        .theme-switcher-circle {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 22px;
+            height: 22px;
+            background-color: #fff;
+            border-radius: 50%;
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-switcher-label .bx { /* Ícones dentro do switch */
+            font-size: 1rem;
+            position: absolute;
+            transition: opacity 0.2s;
+        }
+        .theme-switcher-label .bxs-sun {
+            color: #f1c40f; /* Amarelo para o sol */
+            opacity: 1;
+        }
+        .theme-switcher-label .bxs-moon {
+            color: #ecf0f1; /* Branco para a lua */
+            opacity: 0;
+        }
+
+        #theme-toggle:checked ~ .theme-switcher-label .theme-switcher-circle {
+            transform: translateX(24px);
+        }
+        #theme-toggle:checked ~ .theme-switcher-label .bxs-sun {
+            opacity: 0;
+        }
+        #theme-toggle:checked ~ .theme-switcher-label .bxs-moon {
+            opacity: 1;
+        }
+
+        #theme-toggle { /* Checkbox real escondido */
+            display: none;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #1a252f; /* Azul bem escuro para o fundo */
+            color: #bdc3c7; /* Cinza claro para texto */
+        }
+
+        body.dark-mode header {
+            background-color: #2c3e50;
+        }
+
+        body.dark-mode .logo,
+        body.dark-mode .nav a,
+        body.dark-mode .lang-btn,
+        body.dark-mode .bar1,
+        body.dark-mode .bar2,
+        body.dark-mode .bar3 {
+            color: #ecf0f1;
+        }
+        body.dark-mode .nav a:hover,
+        body.dark-mode .nav a.active {
+            color: #3498db;
+        }
+         body.dark-mode .nav a::after {
+            background-color: #3498db;
+        }
+
+
+        body.dark-mode .services-box i,
+        body.dark-mode h2 span {
+            color: #3498db;
+        }
+        body.dark-mode .services-box h3 {
+            color: #ecf0f1;
+        }
+
+
+        body.dark-mode footer {
+            background-color: #2c3e50;
+            color: #bdc3c7;
+        }
+        body.dark-mode .social-media a {
+            color: #bdc3c7;
+        }
+        body.dark-mode .social-media a:hover {
+            color: #3498db;
+        }
+
+
+        /* Estilos da seção Experiência Profissional (antiga Portfólio) */
+        .experience-container { /* Renomeado de portfolio-container */
+            display: flex;
+            flex-direction: column; /* Empilhar experiências */
+            gap: 2.5rem;
+        }
+
+        .experience-box { /* Renomeado de portfolio-box */
+            border-radius: 10px;
+            padding: 2rem;
+            background-color: #fff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.07);
+            transition: box-shadow 0.3s ease;
+        }
+        .experience-box:hover {
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+        body.dark-mode .experience-box {
+            background-color: #2c2c2c;
+            box-shadow: 0 8px 16px rgba(255,255,255,0.04);
+        }
+         body.dark-mode .experience-box:hover {
+            box-shadow: 0 12px 24px rgba(255,255,255,0.06);
+        }
+
+        .experience-header h4 { /* Título do cargo e empresa */
+            font-size: 1.5rem;
+            color: #3498db;
+            margin-bottom: 0.2rem;
+        }
+        .experience-header .experience-sub-header { /* Container para empresa e localização */
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            font-size: 1.05rem;
+            color: #555;
+            margin-bottom: 0.3rem;
+        }
+        body.dark-mode .experience-header .experience-sub-header {
+            color: #bdc3c7;
+        }
+        .experience-header .experience-dates { /* Datas */
+            font-size: 0.95rem;
+            color: #7f8c8d;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        body.dark-mode .experience-header .experience-dates {
+            color: #95a5a6;
+        }
+
+        .experience-description {
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        .experience-description ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-top: 0.5rem;
+        }
+        .experience-description ul li {
+            margin-bottom: 0.5rem;
+        }
+
+
+        /* Estilos para a seção Formação e Certificações (antiga Certificados) */
+        .education-certification-container { /* Renomeado de certificate-container */
+            width: 95%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 2rem 0;
+        }
+        .education-certification-container .swiper-slide { /* Garantir que os slides tenham altura automática */
+            height: auto !important;
+            display: flex; /* Para que o conteúdo interno ocupe o espaço */
+            flex-direction: column;
+        }
+
+        .education-item, .certification-item { /* Estilo base para itens de formação e certificação */
+            flex-grow: 1; /* Faz com que o item ocupe o espaço do slide */
+            height: 100%; /* Garante que o item preencha a altura do slide */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Distribui o espaço interno */
+            padding: 1.5rem;
+            /* margin-bottom: 1.5rem; */ /* Removido, pois o Swiper cuida do espaçamento */
+            transition: box-shadow 0.3s ease;
+        }
+         .education-item:hover, .certification-item:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+        }
+
+        body.dark-mode .education-item, body.dark-mode .certification-item {
+            background-color: #2c2c2c;
+            box-shadow: 0 6px 12px rgba(255,255,255,0.04);
+        }
+        body.dark-mode .education-item:hover, body.dark-mode .certification-item:hover {
+            box-shadow: 0 10px 20px rgba(255,255,255,0.07);
+        }
+
+        .education-title, .certification-title-text { /* Título do curso/certificado */
+            font-size: 1.2rem; /* Ajustado para caber mais texto */
+            color: #3498db;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+        .education-institution, .certification-institution { /* Instituição */
+            font-size: 0.95rem; /* Ajustado */
+            color: #555;
+            margin-bottom: 0.2rem;
+        }
+        body.dark-mode .education-institution, body.dark-mode .certification-institution {
+            color: #bdc3c7;
+        }
+        .education-emphasis {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        body.dark-mode .education-emphasis {
+             color: #a0a0a0;
+        }
+        .education-dates, .certification-dates { /* Datas */
+            font-size: 0.85rem; /* Ajustado */
+            color: #7f8c8d;
+            margin-top: auto; /* Empurra para baixo se houver espaço */
+            padding-top: 0.5rem; /* Espaço antes da data */
+        }
+         body.dark-mode .education-dates, body.dark-mode .certification-dates {
+            color: #95a5a6;
+        }
+
+
+        /* Swiper para Formação e Certificações */
+        .swiper-pagination .swiper-pagination-bullet-active {
+            background: #3498db !important;
+        }
+        .swiper-button-prev,
+        .swiper-button-next {
+            color: #3498db !important;
+            transition: opacity 0.3s;
+        }
+        .swiper-button-prev:hover,
+        .swiper-button-next:hover {
+            opacity: 0.7;
+        }
+        body.dark-mode .swiper-pagination .swiper-pagination-bullet-active {
+            background: #3498db !important;
+        }
+        body.dark-mode .swiper-button-prev,
+        body.dark-mode .swiper-button-next {
+            color: #3498db !important;
+        }
+
+        /* Estilos para a seção Idiomas e Interesses (antiga Hobbies) */
+        .languages-interests-container { /* Renomeado de cards-container */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+        .language-item, .interest-card { /* Estilo base */
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+            background-color: #fff;
+        }
+        body.dark-mode .language-item, body.dark-mode .interest-card {
+            background-color: #2c2c2c;
+        }
+        .language-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #3498db;
+            margin-bottom: 0.3rem;
+        }
+        .language-level {
+            font-size: 1rem;
+        }
+
+        /* Card de Hobbies (mantido se necessário) */
+        .card {
+            perspective: 1200px;
+            min-height: 220px;
+        }
+        .card-inner {
+            width: 100%; height: 100%;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d; cursor: pointer; position: relative;
+        }
+        .card.is-flipped .card-inner { transform: rotateY(180deg); }
+        .card-front, .card-back {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden; border-radius: 10px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 2rem; box-sizing: border-box;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+        }
+        .card-front { background-color: #e9ecef; color: #333; }
+        .card-jogo { background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%); color: white; }
+        body.dark-mode .card-front { background-color: #3a3a3a; color: #ecf0f1; }
+        body.dark-mode .card-jogo { background-image: linear-gradient(135deg, #3A506B 0%, #1C2541 100%); }
+        .card-back { background-color: #34495e; color: #fff; transform: rotateY(180deg); }
+        body.dark-mode .card-back { background-color: #2c3e50; }
+        .card-front h3 { font-size: 1.5rem; }
+        .card-back p { font-size: 1rem; line-height: 1.6; margin-bottom: 0.8rem; }
+        .card-back strong { font-size: 0.95rem; color: #bdc3c7; }
+        body.dark-mode .card-back strong { color: #95a5a6; }
+
+
+        /* Estilos para o rodapé */
+        footer {
+            background-color: #1f2b38;
+            color: #bdc3c7;
+            padding: 3rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            text-align: center;
+        }
+        .footer-frases {
+            flex-basis: 100%;
+            margin-bottom: 1rem;
+        }
+        @media (min-width: 768px) {
+            .footer-frases {
+                flex-basis: auto;
+                text-align: left;
+                margin-bottom: 0;
+            }
+            footer {
+                text-align: left;
+            }
+        }
+
+        .footer-frases p {
+            margin: 0.4rem 0;
+            font-size: 0.95rem;
+        }
+        .footer-contact-info {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .footer-contact-info p { /* Adicionado para melhor espaçamento */
+            margin-bottom: 0.3rem;
+        }
+        .footer-contact-info i { /* Ícones no rodapé */
+            margin-right: 0.5rem;
+            color: #3498db;
+        }
+        .footer-contact-info a {
+            color: #bdc3c7;
+            text-decoration: none;
+        }
+        .footer-contact-info a:hover {
+            color: #3498db;
+        }
+
+
+        .social-media a {
+            color: #bdc3c7;
+            font-size: 2rem;
+            margin: 0 0.8rem;
+            text-decoration: none;
+            transition: color 0.3s, transform 0.2s;
+        }
+        .social-media a:hover {
+            color: #3498db;
+            transform: translateY(-3px);
+        }
+
+
+        /* Estilos para animação de digitação */
+        .typing-container {
+            min-height: 1.5em; /* Ajuste conforme o tamanho da fonte do h3 */
+            display: inline-block;
+        }
+        .typing {
+            color: #3498db;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: .12em solid #3498db;
+            display: inline-block;
+            vertical-align: bottom;
+            animation: blink-caret .8s step-end infinite;
+        }
+        body.dark-mode .typing {
+            color: #3498db;
+            border-right-color: #3498db;
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #3498db; }
+        }
+        body.dark-mode @keyframes blink-caret {
+            50% { border-color: #3498db; }
+        }
+
+
+        /* Media Queries para Responsividade */
+        @media (max-width: 992px) { /* Tablets e telas menores */
+            .nav {
+                display: none;
+            }
+            .menu-hamburguer {
+                display: block;
+            }
+            .home {
+                padding-top: 100px;
+            }
+            .home-content h1 { font-size: 2.2rem; }
+            .home-content h3 { font-size: 1.3rem; }
+        }
+
+        @media (max-width: 768px) { /* Celulares */
+            header { padding: 0.8rem 1rem; }
+            .logo { font-size: 1.5rem; }
+            .controls-container { gap: 0.5rem; }
+            .lang-btn { padding: 0.3rem 0.5rem; font-size: 0.8rem; }
+            .flag-icon { width: 18px; height: 13px; }
+            .theme-switcher-label { width: 44px; height: 22px; }
+            .theme-switcher-circle { width: 18px; height: 18px; }
+            #theme-toggle:checked ~ .theme-switcher-label .theme-switcher-circle { transform: translateX(22px); }
+
+            section { padding: 5rem 1rem 2rem; }
+            h2 { font-size: 2rem; margin-bottom: 2rem; }
+
+            .home {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+            .home-content { margin-top: 2rem; }
+            .home-img img { max-width: 250px; }
+
+            .experience-container, .languages-interests-container { /* Ajustado */
+                grid-template-columns: 1fr;
+            }
+            footer { flex-direction: column; }
+            .social-media { margin-top: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#home" class="logo" data-i18n="logo">Bruno Neves</a>
+
+        <div class="controls-container">
+            <div class="language-switcher">
+                <button id="pt-br" class="lang-btn active-lang" aria-label="Mudar para Português">
+                    <img src="img/brazil.webp" alt="Bandeira do Brasil" class="flag-icon" onerror="this.style.display='none'"> PT
+                </button>
+                <button id="en" class="lang-btn" aria-label="Switch to English">
+                    <img src="img/united-states.webp" alt="United States Flag" class="flag-icon" onerror="this.style.display='none'"> EN
+                </button>
+            </div>
+
+            <input type="checkbox" id="theme-toggle">
+            <label for="theme-toggle" class="theme-switcher-label" aria-label="Alternar tema claro/escuro">
+                <div class="theme-switcher-circle">
+                    <i class='bx bxs-sun'></i>
+                    <i class='bx bxs-moon'></i>
+                </div>
+            </label>
+        </div>
+
+        <nav class="nav">
+            <a href="#home" data-i18n="nav_home">Início</a>
+            <a href="#services" data-i18n="nav_areas_atuacao">Áreas de Atuação</a>
+            <a href="#portfolio" data-i18n="nav_experiencia">Experiência</a>
+            <a href="#certificate" data-i18n="nav_formacao_cert">Formação & Cert.</a>
+            <a href="#hobbies" data-i18n="nav_idiomas_interesses">Idiomas & Interesses</a>
+            <a href="#contato" data-i18n="nav_contato">Contato</a>
+        </nav>
+
+        <div class="menu-hamburguer" aria-label="Abrir menu de navegação" tabindex="0">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+    </header>
+
+    <nav class="nav-responsive">
+        <a href="#home" data-i18n="nav_home_resp">Início</a>
+        <a href="#services" data-i18n="nav_areas_atuacao_resp">Áreas de Atuação</a>
+        <a href="#portfolio" data-i18n="nav_experiencia_resp">Experiência</a>
+        <a href="#certificate" data-i18n="nav_formacao_cert_resp">Formação & Cert.</a>
+        <a href="#hobbies" data-i18n="nav_idiomas_interesses_resp">Idiomas & Interesses</a>
+        <a href="#contato" data-i18n="nav_contato_resp">Contato</a>
+    </nav>
+
+    <main>
+        <section class="home" id="home">
+            <div class="home-content">
+                <h3 data-i18n="home_hello">Olá, eu sou</h3>
+                <h1 data-i18n="home_name">Bruno Vinicius Cardoso Neves</h1>
+                <h3 data-i18n="home_role_static">Analista de Implantação e Otimização de Sistemas</h3>
+                <h3 data-i18n="typing_professions_label" class="typing-container"><span id="typing" class="typing"></span></h3>
+                <p data-i18n="home_summary">Analista de Implantação Pleno com mais de 8 anos de experiência combinada em suporte, análise e implantação de software, com um histórico comprovado na condução de projetos desde o levantamento estratégico de requisitos até a capacitação de usuários e o go-live. Minha expertise reside em traduzir complexas necessidades de negócio em soluções sistêmicas funcionais e eficientes, otimizando processos e garantindo a máxima aderência às metas do projeto. Sou orientado a resultados, com forte habilidade em gestão de relacionamento com o cliente (CRM) e na entrega de treinamentos que promovem a rápida adoção e proficiência no uso de novas tecnologias.</p>
+                <p data-i18n="home_skills_intro">Conhecimentos Técnicos Específicos:</p>
+                <div class="languages-bar">
+                    <span class="languages">ERP Datasul</span>
+                    <span class="languages">Sistemas de Gestão Fiscal</span>
+                    <span class="languages">Pioneiro Fiscal</span>
+                    <span class="languages">Jira Service Desk</span>
+                    <span class="languages">Intervenção ECF</span>
+                    <span class="languages">Emissão NF-e</span>
+                    <span class="languages">Sintegra</span>
+                    <span class="languages">SPED</span>
+                    <span class="languages">HTML</span>
+                    <span class="languages">CSS</span>
+                    <span class="languages">JavaScript (Noções)</span>
+                </div>
+                <div>
+                    <a href="docs/cv_bruno_neves.pdf" class="btn" data-i18n="home_download_cv" download>Download CV</a>
+                    <a href="#contato" class="btn secondary" data-i18n="home_contact_me">Contate-me</a>
+                </div>
+            </div>
+            <div class="home-img">
+                <!-- ATUALIZE O SRC COM O CAMINHO PARA SUA FOTO NA PASTA IMG -->
+                <img src="img/foto bruno.jpg" alt="Foto de Bruno Vinicius Cardoso Neves" onerror="this.alt='Sua Foto de Perfil'; this.src='https://placehold.co/320x320/3498db/ecf0f1?text=Sua+Foto';">
+            </div>
+            <a href="#services" class="arrow" aria-label="Ir para a próxima seção"><i class='bx bx-chevrons-down'></i></a>
+        </section>
+
+        <section class="services" id="services"> <h2 data-i18n="nav_areas_atuacao">Principais Áreas de <span>Atuação</span></h2>
+            <div class="services-container">
+                <div class="services-box">
+                    <i class='bx bx-briefcase-alt-2'></i>
+                    <h3 data-i18n="area1_title">Gestão de Projetos de Implantação</h3>
+                    <p data-i18n="area1_desc">Ciclo de vida completo de projetos, levantamento e análise de requisitos, definição de escopo funcional, parametrização e customização de sistemas (ERP, CRM), Jira Service Desk, cumprimento de cronogramas e ordens de serviço.</p>
+                </div>
+                <div class="services-box">
+                    <i class='bx bx-analyse'></i>
+                    <h3 data-i18n="area2_title">Análise de Negócios e Otimização</h3>
+                    <p data-i18n="area2_desc">Mapeamento de processos, identificação de oportunidades de melhoria, tradução de necessidades de negócio em especificações técnicas, gestão estratégica de TI.</p>
+                </div>
+                <div class="services-box">
+                    <i class='bx bx-chalkboard'></i>
+                    <h3 data-i18n="area3_title">Capacitação e Suporte ao Usuário</h3>
+                    <p data-i18n="area3_desc">Desenvolvimento e condução de treinamentos técnicos e funcionais, homologação de conhecimento, suporte pós-implantação, resolução de problemas complexos, gestão de relacionamento com clientes (CRM).</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="portfolio" id="portfolio"> <h2 data-i18n="nav_experiencia">Experiência <span>Profissional</span></h2>
+            <div class="experience-container">
+                <div class="experience-box">
+                    <div class="experience-header">
+                        <h4 data-i18n="exp1_title">Analista De Implantação Pleno</h4>
+                        <p class="experience-sub-header"><strong data-i18n="exp1_company">Agrobit BR</strong> | <span data-i18n="exp1_location">São Paulo, Brasil</span></p>
+                        <span class="experience-dates" data-i18n="exp1_dates">Junho de 2023 - Presente</span>
+                    </div>
+                    <div class="experience-description">
+                        <ul data-i18n="exp1_details">
+                            </ul>
+                    </div>
+                </div>
+                <div class="experience-box">
+                    <div class="experience-header">
+                        <h4 data-i18n="exp2_title">Analista de Implantação</h4>
+                        <p class="experience-sub-header"><strong data-i18n="exp2_company">Movere Software</strong> | <span data-i18n="exp2_location">Cuiabá, Mato Grosso, Brasil</span></p>
+                        <span class="experience-dates" data-i18n="exp2_dates">Dezembro de 2022 - Maio de 2023 (6 meses)</span>
+                    </div>
+                    <div class="experience-description">
+                        <ul data-i18n="exp2_details">
+                            </ul>
+                    </div>
+                </div>
+                 <div class="experience-box">
+                    <div class="experience-header">
+                        <h4 data-i18n="exp3_title">Suporte Software de Sistema</h4>
+                        <p class="experience-sub-header"><strong data-i18n="exp3_company">Pioflex Tecnologia</strong> | <span data-i18n="exp3_location">Localização não especificada</span></p>
+                        <span class="experience-dates" data-i18n="exp3_dates">Maio de 2016 - Dezembro de 2022 (6 anos e 8 meses)</span>
+                    </div>
+                    <div class="experience-description">
+                        <ul data-i18n="exp3_details">
+                            </ul>
+                    </div>
+                </div>
+                 <div class="experience-box">
+                    <div class="experience-header">
+                        <h4 data-i18n="exp4_title">Suporte Software de Sistema</h4>
+                        <p class="experience-sub-header"><strong data-i18n="exp4_company">Arilmaq Ltda (Eficaz Automação e Sistema)</strong> | <span data-i18n="exp4_location">Localização não especificada</span></p>
+                        <span class="experience-dates" data-i18n="exp4_dates">Abril de 2014 - Novembro de 2015 (1 ano e 8 meses)</span>
+                    </div>
+                    <div class="experience-description">
+                        <ul data-i18n="exp4_details">
+                            </ul>
+                    </div>
+                </div>
+                <div class="experience-box">
+                    <div class="experience-header">
+                        <h4 data-i18n="exp5_title">Auxiliar de Cristalização (com interface em TI/Sistemas)</h4>
+                        <p class="experience-sub-header"><strong data-i18n="exp5_company">Liasa</strong> | <span data-i18n="exp5_location">Localização não especificada</span></p>
+                        <span class="experience-dates" data-i18n="exp5_dates">Junho de 2008 - Fevereiro de 2013 (4 anos e 9 meses)</span>
+                    </div>
+                    <div class="experience-description">
+                        <ul data-i18n="exp5_details">
+                            </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="certificate" id="certificate"> <h2 data-i18n="nav_formacao_cert">Formação & <span>Certificações</span></h2>
+            <div class="education-certification-container swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide education-item">
+                        <h3 class="education-title" data-i18n="edu1_title">Bacharelado em Sistemas de Informação</h3>
+                        <p class="education-institution" data-i18n="edu1_institution">INSTITUTO FEDERAL DO NORTE DE MINAS GERAIS (IFNMG)</p>
+                        <p class="education-emphasis" data-i18n="edu1_emphasis">Ênfase em Gestão de Sistemas de Informação</p>
+                        <p class="education-dates" data-i18n="edu1_completed">Concluído em Fevereiro de 2022</p>
+                    </div>
+                    <div class="swiper-slide education-item">
+                        <h3 class="education-title" data-i18n="edu2_title">Técnico em Metalurgia</h3>
+                        <p class="education-institution" data-i18n="edu2_institution">Fundação Educacional Alto Médio São Francisco (FUNAM)</p>
+                        <p class="education-dates" data-i18n="edu2_completed">Concluído em 2010</p>
+                    </div>
+                    <div class="swiper-slide certification-item">
+                        <h3 class="certification-title-text" data-i18n="cert1_title">Engenharia de Requisitos</h3>
+                        <p class="certification-institution" data-i18n="cert1_institution">Alura</p>
+                        <p class="certification-dates" data-i18n="cert1_date">Emitido em mai. de 2024</p>
+                    </div>
+                    <div class="swiper-slide certification-item">
+                        <h3 class="certification-title-text" data-i18n="cert2_title">Produtividade, Gestão do Tempo e Propósito</h3>
+                        <p class="certification-institution" data-i18n="cert2_institution">PUCRS</p>
+                        <p class="certification-dates" data-i18n="cert2_date">Emitido em mai. de 2024</p>
+                    </div>
+                    <div class="swiper-slide certification-item">
+                        <h3 class="certification-title-text" data-i18n="cert3_title">Comunicação e Oratória</h3>
+                        <p class="certification-institution" data-i18n="cert3_institution">Escola Conquer</p>
+                        <p class="certification-dates" data-i18n="cert3_date">Emitido em abr. de 2024</p>
+                    </div>
+                    <div class="swiper-slide certification-item">
+                        <h3 class="certification-title-text" data-i18n="cert4_title">Produtividade e Gestão do Tempo</h3>
+                        <p class="certification-institution" data-i18n="cert4_institution">Escola Conquer</p>
+                        <p class="certification-dates" data-i18n="cert4_date">Emitido em abr. de 2024</p>
+                    </div>
+                    <div class="swiper-slide certification-item">
+                        <h3 class="certification-title-text" data-i18n="cert5_title">Inteligência Emocional</h3>
+                        <p class="certification-institution" data-i18n="cert5_institution">Escola Conquer</p>
+                        <p class="certification-dates" data-i18n="cert5_date">Emitido em abr. de 2024</p>
+                    </div>
+                     <div class="swiper-slide certification-item">
+                        <h3 class="certification-title-text" data-i18n="cert6_title">Gestão de Tempo</h3>
+                        <p class="certification-institution" data-i18n="cert6_institution">LinkedIn</p>
+                        <p class="certification-dates" data-i18n="cert6_date">Emitido em mar. de 2024</p>
+                    </div>
+                     <div class="swiper-slide certification-item">
+                        <h3 class="certification-title-text" data-i18n="cert7_title">Comunicação Interpessoal</h3>
+                        <p class="certification-institution" data-i18n="cert7_institution">LinkedIn</p>
+                        <p class="certification-dates" data-i18n="cert7_date">Emitido em mar. de 2024</p>
+                    </div>
+                     <div class="swiper-slide certification-item">
+                        <h3 class="certification-title-text" data-i18n="cert8_title">Atendimento ao Cliente</h3>
+                        <p class="certification-institution" data-i18n="cert8_institution">LinkedIn</p>
+                        <p class="certification-dates" data-i18n="cert8_date">Emitido em mar. de 2024</p>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev" aria-label="Anterior"></div>
+                <div class="swiper-button-next" aria-label="Próximo"></div>
+            </div>
+        </section>
+
+        <section class="hobbies" id="hobbies"> <h2 data-i18n="nav_idiomas_interesses">Idiomas & <span>Interesses</span></h2>
+            <div class="languages-interests-container">
+                <div class="language-item">
+                    <h3 class="language-name" data-i18n="lang1_name">Português</h3>
+                    <p class="language-level" data-i18n="lang1_level">Nativo</p>
+                </div>
+                <div class="language-item">
+                    <h3 class="language-name" data-i18n="lang2_name">Espanhol</h3>
+                    <p class="language-level" data-i18n="lang2_level">Intermediário (Leitura/Escrita)</p>
+                </div>
+                <div class="card interest-card" tabindex="0">
+                    <div class="card-inner">
+                        <div class="card-front card-jogo">
+                            <i class='bx bxs-joystick' style="font-size: 3rem; margin-bottom: 0.5rem;"></i>
+                            <h3 data-i18n="interest1_front">Tecnologia e Inovação</h3>
+                        </div>
+                        <div class="card-back">
+                            <p data-i18n="interest1_back">Sempre buscando aprender sobre novas tecnologias e como elas podem otimizar processos e criar soluções inovadoras.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="contato" id="contato">
+        <div class="footer-frases">
+            <p data-i18n="footer_copyright">© 2025 Bruno Vinicius Cardoso Neves. Todos os direitos reservados.</p>
+            <p data-i18n="footer_phrase">Foco em Resultados e Experiência do Usuário.</p>
+            <div class="footer-contact-info">
+                <p><i class='bx bxs-phone'></i> <a href="tel:+5538997315389" data-i18n="contact_phone">(38) 99731-5389</a></p>
+                <p><i class='bx bxs-envelope'></i> <a href="mailto:brunovinicius0@hotmail.com" data-i18n="contact_email">brunovinicius0@hotmail.com</a></p>
+                <p><i class='bx bxs-map'></i> <span data-i18n="contact_location">Pirapora, Minas Gerais, Brasil</span></p>
+            </div>
+        </div>
+        <div class="social-media">
+            <a href="https://linkedin.com/in/bruno-vinicius-cardoso-neves-0a56274a" target="_blank" aria-label="LinkedIn"><i class='bx bxl-linkedin-square'></i></a>
+            <a href="https://github.com/brunovinicius007" target="_blank" aria-label="GitHub"><i class='bx bxl-github'></i></a> </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Element Selectors
+            const body = document.body;
+            const themeToggle = document.getElementById('theme-toggle');
+            const menuHamburguer = document.querySelector('.menu-hamburguer');
+            const navResponsive = document.querySelector('.nav-responsive');
+            const navLinks = document.querySelectorAll('.nav a, .nav-responsive a');
+            const sections = document.querySelectorAll('section[id]');
+            const header = document.querySelector('header');
+            const langBtns = document.querySelectorAll('.lang-btn');
+
+            // --- State Variables ---
+            let currentLang = localStorage.getItem('language') || 'pt-br';
+            let typingProfessions = []; // Initialized by applyLanguage
+            let currentProfessionIndex = 0;
+            let currentCharIndex = 0;
+            let isDeleting = false;
+            let typingTimeout;
+
+            // --- Function Definitions ---
+
+            function setTheme(isDark) {
+                if (isDark) {
+                    body.classList.add('dark-mode');
+                    if(themeToggle) themeToggle.checked = true;
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    body.classList.remove('dark-mode');
+                    if(themeToggle) themeToggle.checked = false;
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            }
+
+            function toggleMenu() {
+                if (!menuHamburguer || !navResponsive) return;
+                const isOpen = menuHamburguer.classList.contains('open');
+                menuHamburguer.classList.toggle('open', !isOpen);
+                navResponsive.classList.toggle('open', !isOpen);
+                menuHamburguer.setAttribute('aria-expanded', String(!isOpen));
+            }
+
+            function updateActiveNavLink() {
+                if (!header || sections.length === 0) return;
+                let currentSectionId = '';
+                const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - (header.offsetHeight + 70);
+                    const sectionHeight = section.offsetHeight;
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        currentSectionId = section.getAttribute('id');
+                    }
+                });
+                
+                if (!currentSectionId && scrollPosition < sections[0].offsetTop - (header.offsetHeight + 70)) {
+                    currentSectionId = 'home';
+                }
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') && link.getAttribute('href').substring(1) === currentSectionId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            const i18nData = {
+                "pt-br": {
+                    "logo": "Bruno Neves",
+                    "nav_home": "Início", "nav_areas_atuacao": "Áreas de Atuação", "nav_experiencia": "Experiência", "nav_formacao_cert": "Formação & Cert.", "nav_idiomas_interesses": "Idiomas & Interesses", "nav_contato": "Contato",
+                    "nav_home_resp": "Início", "nav_areas_atuacao_resp": "Áreas de Atuação", "nav_experiencia_resp": "Experiência", "nav_formacao_cert_resp": "Formação & Cert.", "nav_idiomas_interesses_resp": "Idiomas & Interesses", "nav_contato_resp": "Contato",
+                    "home_hello": "Olá, eu sou",
+                    "home_name": "Bruno Vinicius Cardoso Neves",
+                    "home_role_static": "Analista de Implantação e Otimização de Sistemas",
+                    "typing_professions_label": "Foco em ",
+                    "home_summary": "Analista de Implantação Pleno com mais de 8 anos de experiência combinada em suporte, análise e implantação de software, com um histórico comprovado na condução de projetos desde o levantamento estratégico de requisitos até a capacitação de usuários e o go-live. Minha expertise reside em traduzir complexas necessidades de negócio em soluções sistêmicas funcionais e eficientes, otimizando processos e garantindo a máxima aderência às metas do projeto. Sou orientado a resultados, com forte habilidade em gestão de relacionamento com o cliente (CRM) e na entrega de treinamentos que promovem a rápida adoção e proficiência no uso de novas tecnologias.",
+                    "home_skills_intro": "Conhecimentos Técnicos Específicos:",
+                    "home_download_cv": "Download CV", "home_contact_me": "Contate-me",
+                    "area1_title": "Gestão de Projetos de Implantação",
+                    "area1_desc": "Ciclo de vida completo de projetos, levantamento e análise de requisitos, definição de escopo funcional, parametrização e customização de sistemas (ERP, CRM), Jira Service Desk, cumprimento de cronogramas e ordens de serviço.",
+                    "area2_title": "Análise de Negócios e Otimização",
+                    "area2_desc": "Mapeamento de processos, identificação de oportunidades de melhoria, tradução de necessidades de negócio em especificações técnicas, gestão estratégica de TI.",
+                    "area3_title": "Capacitação e Suporte ao Usuário",
+                    "area3_desc": "Desenvolvimento e condução de treinamentos técnicos e funcionais, homologação de conhecimento, suporte pós-implantação, resolução de problemas complexos, gestão de relacionamento com clientes (CRM).",
+                    "exp1_title": "Analista De Implantação Pleno", "exp1_company": "Agrobit BR", "exp1_location": "São Paulo, Brasil", "exp1_dates": "Junho de 2023 - Presente",
+                    "exp1_detail1": "Condução do levantamento de requisitos e análise de viabilidade técnica para a implantação de soluções, resultando na definição precisa do escopo e features dos projetos.",
+                    "exp1_detail2": "Responsável pela parametrização e configuração de sistemas de acordo com as especificidades do negócio do cliente, assegurando a entrega de projetos dentro do prazo e do orçamento.",
+                    "exp1_detail3": "Desenvolvimento e ministração de treinamentos customizados para usuários finais, elevando o nível de proficiência e acelerando a adoção das novas ferramentas.",
+                    "exp2_title": "Analista de Implantação", "exp2_company": "Movere Software", "exp2_location": "Cuiabá, Mato Grosso, Brasil", "exp2_dates": "Dezembro de 2022 - Maio de 2023 (6 meses)",
+                    "exp2_detail1": "Realização do levantamento de requisitos funcionais e técnicos, atuando como ponte entre as necessidades dos clientes e as capacidades do software.",
+                    "exp2_detail2": "Execução da parametrização do sistema, garantindo a aderência ao escopo do projeto e o cumprimento dos cronogramas pré-definidos.",
+                    "exp2_detail3": "Capacitação de equipes de usuários, facilitando a transição para novas plataformas e validando a absorção do conhecimento técnico e funcional.",
+                    "exp3_title": "Suporte Software de Sistema", "exp3_company": "Pioflex Tecnologia", "exp3_location": "Localização não especificada", "exp3_dates": "Maio de 2016 - Dezembro de 2022 (6 anos e 8 meses)",
+                    "exp3_detail1": "Liderança no suporte técnico especializado para o sistema Pioneiro, incluindo intervenção e cessação de ECFs, e resolução de problemas complexos na entrada e emissão de NF-e.",
+                    "exp3_detail2": "Responsável pela orientação e execução de rotinas fiscais mensais (Sintegra, SPED), garantindo a conformidade legal e fiscal dos clientes e minimizando riscos.",
+                    "exp3_detail3": "Condução de treinamentos para usuários do sistema, resultando em maior autonomia e eficiência na utilização das funcionalidades fiscais e de gestão.",
+                    "exp4_title": "Suporte Software de Sistema", "exp4_company": "Arilmaq Ltda (Eficaz Automação e Sistema)", "exp4_location": "Localização não especificada", "exp4_dates": "Abril de 2014 - Novembro de 2015 (1 ano e 8 meses)",
+                    "exp4_detail1": "Prestação de suporte técnico a usuários de software de sistema, auxiliando na resolução de dúvidas e problemas operacionais.",
+                    "exp5_title": "Auxiliar de Cristalização (com interface em TI/Sistemas)", "exp5_company": "Liasa", "exp5_location": "Localização não especificada", "exp5_dates": "Junho de 2008 - Fevereiro de 2013 (4 anos e 9 meses)",
+                    "exp5_detail1": "Utilização do sistema ERP Datasul para reporte de produção, requisição de EPIs e materiais secundários.",
+                    "exp5_detail2": "Lançamento e controle de dados de produção do SiGS em planilhas e no sistema ERP, garantindo a integridade e acuracidade das informações.",
+                    "exp5_detail3": "Participação ativa no controle de estoque do setor e nos processos de inventário anual, utilizando ferramentas sistêmicas para otimização.",
+                    "edu1_title": "Bacharelado em Sistemas de Informação", "edu1_institution": "INSTITUTO FEDERAL DO NORTE DE MINAS GERAIS (IFNMG)", "edu1_emphasis": "Ênfase em Gestão de Sistemas de Informação", "edu1_completed": "Concluído em Fevereiro de 2022",
+                    "edu2_title": "Técnico em Metalurgia", "edu2_institution": "Fundação Educacional Alto Médio São Francisco (FUNAM)", "edu2_completed": "Concluído em 2010",
+                    "cert1_title": "Engenharia de Requisitos", "cert1_institution": "Alura", "cert1_date": "Emitido em mai. de 2024",
+                    "cert2_title": "Produtividade, Gestão do Tempo e Propósito", "cert2_institution": "PUCRS", "cert2_date": "Emitido em mai. de 2024",
+                    "cert3_title": "Comunicação e Oratória", "cert3_institution": "Escola Conquer", "cert3_date": "Emitido em abr. de 2024",
+                    "cert4_title": "Produtividade e Gestão do Tempo", "cert4_institution": "Escola Conquer", "cert4_date": "Emitido em abr. de 2024",
+                    "cert5_title": "Inteligência Emocional", "cert5_institution": "Escola Conquer", "cert5_date": "Emitido em abr. de 2024",
+                    "cert6_title": "Gestão de Tempo", "cert6_institution": "LinkedIn", "cert6_date": "Emitido em mar. de 2024",
+                    "cert7_title": "Comunicação Interpessoal", "cert7_institution": "LinkedIn", "cert7_date": "Emitido em mar. de 2024",
+                    "cert8_title": "Atendimento ao Cliente", "cert8_institution": "LinkedIn", "cert8_date": "Emitido em mar. de 2024",
+                    "lang1_name": "Português", "lang1_level": "Nativo",
+                    "lang2_name": "Espanhol", "lang2_level": "Intermediário (Leitura/Escrita)",
+                    "interest1_front": "Tecnologia e Inovação", "interest1_back": "Sempre buscando aprender sobre novas tecnologias e como elas podem otimizar processos e criar soluções inovadoras.",
+                    "footer_copyright": "© 2025 Bruno Vinicius Cardoso Neves. Todos os direitos reservados.",
+                    "footer_phrase": "Foco em Resultados e Experiência do Usuário.",
+                    "contact_phone":"(38) 99731-5389", "contact_email":"brunovinicius0@hotmail.com", "contact_location":"Pirapora, Minas Gerais, Brasil"
+
+                },
+                "en": {
+                    "logo": "Bruno Neves",
+                    "nav_home": "Home", "nav_areas_atuacao": "Areas of Expertise", "nav_experiencia": "Experience", "nav_formacao_cert": "Education & Cert.", "nav_idiomas_interesses": "Languages & Interests", "nav_contato": "Contact",
+                    "nav_home_resp": "Home", "nav_areas_atuacao_resp": "Areas of Expertise", "nav_experiencia_resp": "Experience", "nav_formacao_cert_resp": "Education & Cert.", "nav_idiomas_interesses_resp": "Languages & Interests", "nav_contato_resp": "Contact",
+                    "home_hello": "Hello, I am",
+                    "home_name": "Bruno Vinicius Cardoso Neves",
+                    "home_role_static": "Implementation and Systems Optimization Analyst",
+                    "typing_professions_label": "Focus on ",
+                    "home_summary": "Senior Implementation Analyst with over 8 years of combined experience in support, analysis, and software implementation, with a proven track record in leading projects from strategic requirements gathering to user training and go-live. My expertise lies in translating complex business needs into functional and efficient systemic solutions, optimizing processes, and ensuring maximum adherence to project goals. I am results-oriented, with strong skills in customer relationship management (CRM) and delivering training that promotes rapid adoption and proficiency in new technologies.",
+                    "home_skills_intro": "Specific Technical Knowledge:",
+                    "home_download_cv": "Download CV", "home_contact_me": "Contact Me",
+                    "area1_title": "Implementation Project Management",
+                    "area1_desc": "Complete project lifecycle, requirements gathering and analysis, functional scope definition, system parameterization and customization (ERP, CRM), Jira Service Desk, adherence to schedules and service orders.",
+                    "area2_title": "Business Analysis and Optimization",
+                    "area2_desc": "Process mapping, identification of improvement opportunities, translation of business needs into technical specifications, strategic IT management.",
+                    "area3_title": "User Training and Support",
+                    "area3_desc": "Development and delivery of technical and functional training, knowledge validation, post-implementation support, complex problem solving, customer relationship management (CRM).",
+                    "exp1_title": "Senior Implementation Analyst", "exp1_company": "Agrobit BR", "exp1_location": "São Paulo, Brazil", "exp1_dates": "June 2023 - Present",
+                    "exp1_detail1": "Led requirements gathering and technical feasibility analysis for solution implementations, resulting in precise project scope and feature definition.",
+                    "exp1_detail2": "Responsible for system parameterization and configuration according to client's business specifics, ensuring on-time and on-budget project delivery.",
+                    "exp1_detail3": "Developed and delivered customized training for end-users, enhancing proficiency levels and accelerating new tool adoption.",
+                    "exp2_title": "Implementation Analyst", "exp2_company": "Movere Software", "exp2_location": "Cuiabá, Mato Grosso, Brazil", "exp2_dates": "December 2022 - May 2023 (6 months)",
+                    "exp2_detail1": "Conducted functional and technical requirements gathering, acting as a bridge between client needs and software capabilities.",
+                    "exp2_detail2": "Executed system parameterization, ensuring adherence to project scope and meeting predefined timelines.",
+                    "exp2_detail3": "Trained user teams, facilitating the transition to new platforms and validating the absorption of technical and functional knowledge.",
+                    "exp3_title": "System Software Support", "exp3_company": "Pioflex Tecnologia", "exp3_location": "Location not specified", "exp3_dates": "May 2016 - December 2022 (6 years and 8 months)",
+                    "exp3_detail1": "Led specialized technical support for the Pioneiro system, including ECF intervention and cessation, and resolving complex issues in NF-e entry and issuance.",
+                    "exp3_detail2": "Responsible for guiding and executing monthly tax routines (Sintegra, SPED), ensuring clients' legal and fiscal compliance and minimizing risks.",
+                    "exp3_detail3": "Conducted system user training, resulting in greater autonomy and efficiency in using fiscal and management functionalities.",
+                    "exp4_title": "System Software Support", "exp4_company": "Arilmaq Ltda (Eficaz Automação e Sistema)", "exp4_location": "Location not specified", "exp4_dates": "April 2014 - November 2015 (1 year and 8 months)",
+                    "exp4_detail1": "Provided technical support to system software users, assisting in resolving operational doubts and problems.",
+                    "exp5_title": "Crystallization Assistant (with IT/Systems interface)", "exp5_company": "Liasa", "exp5_location": "Location not specified", "exp5_dates": "June 2008 - February 2013 (4 years and 9 months)",
+                    "exp5_detail1": "Used ERP Datasul system for production reporting, requisition of PPE and secondary materials.",
+                    "exp5_detail2": "Launched and controlled SiGS production data in spreadsheets and the ERP system, ensuring data integrity and accuracy.",
+                    "exp5_detail3": "Actively participated in sector inventory control and annual inventory processes, using systemic tools for optimization.",
+                    "edu1_title": "Bachelor's in Information Systems", "edu1_institution": "FEDERAL INSTITUTE OF NORTHERN MINAS GERAIS (IFNMG)", "edu1_emphasis": "Emphasis on Information Systems Management", "edu1_completed": "Completed in February 2022",
+                    "edu2_title": "Technician in Metallurgy", "edu2_institution": "Fundação Educacional Alto Médio São Francisco (FUNAM)", "edu2_completed": "Completed in 2010",
+                    "cert1_title": "Requirements Engineering", "cert1_institution": "Alura", "cert1_date": "Issued May 2024",
+                    "cert2_title": "Productivity, Time Management and Purpose", "cert2_institution": "PUCRS", "cert2_date": "Issued May 2024",
+                    "cert3_title": "Communication and Public Speaking", "cert3_institution": "Escola Conquer", "cert3_date": "Issued Apr 2024",
+                    "cert4_title": "Productivity and Time Management", "cert4_institution": "Escola Conquer", "cert4_date": "Issued Apr 2024",
+                    "cert5_title": "Emotional Intelligence", "cert5_institution": "Escola Conquer", "cert5_date": "Issued Apr 2024",
+                    "cert6_title": "Time Management", "cert6_institution": "LinkedIn", "cert6_date": "Issued Mar 2024",
+                    "cert7_title": "Interpersonal Communication", "cert7_institution": "LinkedIn", "cert7_date": "Issued Mar 2024",
+                    "cert8_title": "Customer Service", "cert8_institution": "LinkedIn", "cert8_date": "Issued Mar 2024",
+                    "lang1_name": "Portuguese", "lang1_level": "Native",
+                    "lang2_name": "Spanish", "lang2_level": "Intermediate (Reading/Writing)",
+                    "interest1_front": "Technology & Innovation", "interest1_back": "Always seeking to learn about new technologies and how they can optimize processes and create innovative solutions.",
+                    "footer_copyright": "© 2025 Bruno Vinicius Cardoso Neves. All rights reserved.",
+                    "footer_phrase": "Focus on Results and User Experience.",
+                    "contact_phone":"+55 (38) 99731-5389", "contact_email":"brunovinicius0@hotmail.com", "contact_location":"Pirapora, Minas Gerais, Brazil"
+                }
+            };
+
+            function applyLanguage(lang) {
+                document.documentElement.lang = lang.startsWith('en') ? 'en' : 'pt-BR';
+                const translations = i18nData[lang];
+                if (!translations) return;
+
+                document.querySelectorAll('[data-i18n]').forEach(element => {
+                    const key = element.getAttribute('data-i18n');
+                    if (translations[key]) {
+                        if (element.classList.contains('experience-description') && key.endsWith('_details')) {
+                            const detailsContainer = element;
+                            detailsContainer.innerHTML = ''; 
+                            let i = 1;
+                            while(translations[key.replace('_details', `_detail${i}`)]) {
+                                const listItem = document.createElement('li');
+                                listItem.textContent = translations[key.replace('_details', `_detail${i}`)];
+                                detailsContainer.appendChild(listItem);
+                                i++;
+                            }
+                        } else if (element.innerHTML.includes("<span>") && (key === "services_title" || key === "portfolio_title" || key === "hobbies_title" || key === "nav_areas_atuacao" || key === "nav_experiencia" || key === "nav_formacao_cert" || key === "nav_idiomas_interesses")) {
+                            element.innerHTML = translations[key];
+                        } else {
+                            element.textContent = translations[key];
+                        }
+                    }
+                });
+
+                const typingLabelSpan = document.querySelector('[data-i18n="typing_professions_label"]');
+                if(typingLabelSpan) {
+                    typingLabelSpan.innerHTML = translations["typing_professions_label"] + '<span id="typing" class="typing"></span>';
+                }
+
+                const professions_pt = ["Resultados", "Experiência do Usuário", "Otimização de Sistemas"];
+                const professions_en = ["Results", "User Experience", "Systems Optimization"];
+                typingProfessions = (lang === 'en') ? professions_en : professions_pt;
+
+                currentProfessionIndex = 0;
+                currentCharIndex = 0;
+                isDeleting = false; 
+                const typingSpan = document.getElementById('typing');
+                if (typingSpan) {
+                    typingSpan.textContent = '';
+                    if (typingTimeout) clearTimeout(typingTimeout);
+                    type();
+                }
+
+                langBtns.forEach(b => b.classList.remove('active-lang'));
+                const activeBtn = document.getElementById(lang);
+                if (activeBtn) activeBtn.classList.add('active-lang');
+                localStorage.setItem('language', lang);
+                updateActiveNavLink(); 
+            }
+
+
+            function type() {
+                const typingSpan = document.getElementById('typing');
+                if (!typingSpan || !typingProfessions || typingProfessions.length === 0) return;
+
+                const currentProfession = typingProfessions[currentProfessionIndex];
+                if (isDeleting) {
+                    typingSpan.textContent = currentProfession.substring(0, currentCharIndex - 1);
+                    currentCharIndex--;
+                } else {
+                    typingSpan.textContent = currentProfession.substring(0, currentCharIndex + 1);
+                    currentCharIndex++;
+                }
+
+                let typeSpeed = isDeleting ? 60 : 120;
+
+                if (!isDeleting && currentCharIndex === currentProfession.length) {
+                    isDeleting = true;
+                    typeSpeed = 2000;
+                } else if (isDeleting && currentCharIndex === 0) {
+                    isDeleting = false;
+                    currentProfessionIndex = (currentProfessionIndex + 1) % typingProfessions.length;
+                    typeSpeed = 500;
+                }
+                typingTimeout = setTimeout(type, typeSpeed);
+            }
+
+            // --- Event Listeners and Initializations ---
+            if (themeToggle) {
+                themeToggle.addEventListener('change', () => setTheme(themeToggle.checked));
+            }
+            const savedTheme = localStorage.getItem('darkMode');
+            setTheme(savedTheme === 'enabled');
+
+
+            if (menuHamburguer && navResponsive) {
+                menuHamburguer.addEventListener('click', toggleMenu);
+                menuHamburguer.addEventListener('keypress', (e) => { if (e.key === 'Enter' || e.key === ' ') toggleMenu(); });
+                navResponsive.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => { if (navResponsive.classList.contains('open')) toggleMenu(); });
+                });
+            }
+
+            window.addEventListener('scroll', updateActiveNavLink);
+
+            try {
+                const swiperCertificates = new Swiper('.education-certification-container.swiper', { 
+                    slidesPerView: 1, spaceBetween: 20, loop: true, grabCursor: true,
+                    pagination: { el: '.swiper-pagination', clickable: true },
+                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                    breakpoints: {
+                        600: { slidesPerView: 2, spaceBetween: 20 },
+                        992: { slidesPerView: 2, spaceBetween: 30 }, 
+                        1200: { slidesPerView: 3, spaceBetween: 30 }
+                    },
+                    autoplay: { delay: 4500, disableOnInteraction: false },
+                });
+            } catch (e) { console.warn("Swiper (Formação/Certificados) não pôde ser inicializado:", e); }
+
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                function flipCard() { card.classList.toggle('is-flipped'); }
+                card.addEventListener('click', flipCard);
+                card.addEventListener('keypress', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flipCard(); }});
+            });
+
+            langBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    currentLang = this.id;
+                    applyLanguage(currentLang);
+                });
+            });
+            applyLanguage(currentLang); 
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement && header) {
+                        const headerOffset = header.offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                    }
+                });
+            });
+            updateActiveNavLink();
+            const initialTypingSpan = document.getElementById('typing');
+            if (initialTypingSpan && typingProfessions && typingProfessions.length > 0) { 
+                 typingTimeout = setTimeout(type, 500); 
+            }
+
+
+        });
+    </script>
+</body>
+</html>
+```
+
+
+
